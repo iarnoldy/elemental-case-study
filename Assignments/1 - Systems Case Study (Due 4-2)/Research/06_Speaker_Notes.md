@@ -154,7 +154,7 @@
 >
 > The positive feedback loop reversed. Central location leads to economic access, which leads to home expansion, which increases value, which builds wealth, which enables further investment. The house became what Aravena calls "a tool to overcome poverty" rather than merely "a shelter against the environment."
 >
-> But — and this matters for the next slide — the model isn't without flaws. A strong analysis acknowledges both.
+> But the problems are real. Construction quality is uneven — many additions use low-quality materials that replicate the informal conditions the project replaced. 31% of units encroached on shared courtyards. Participation ended at handover — no ongoing technical support, no collective governance. And at the global level, the model hasn't scaled. Aravena himself calls it "still a failure." We'll dig into these criticisms in detail shortly.
 
 ---
 
