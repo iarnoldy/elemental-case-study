@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ELEMENTAL | Half a Good House — Systems Case Study</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        "surface-container-low": "#f3f3f4",
+        "surface-container": "#eeeeee",
+        "surface-variant": "#e2e2e2",
+        "on-background": "#1a1c1c",
+        "background": "#f9f9f9",
+        "surface-container-high": "#e8e8e8",
+        "on-surface-variant": "#4c4546",
+        "primary-container": "#1b1b1b",
+        "primary": "#000000",
+        "surface": "#f9f9f9",
+        "error": "#ba1a1a",
+        "outline-variant": "#cfc4c5",
+        "surface-container-lowest": "#ffffff",
+        "outline": "#7e7576",
+        "on-surface": "#1a1c1c",
+        "secondary": "#5e5e5e",
+        "on-primary": "#ffffff"
+      },
+      fontFamily: {
+        "headline": ["Inter"],
+        "body": ["Inter"],
+        "label": ["Space Grotesk"]
+      },
+      borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px"},
+    },
+  },
+}
+</script>
+<style>
+@page {
+  size: 11in 8.5in landscape;
+  margin: 0;
+}
+body {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  margin: 0;
+}
+/* Each slide is exactly one 16:9 page */
+.slide {
+  width: 11in;
+  height: 8.5in;
+  overflow: hidden;
+  position: relative;
+  break-after: page;
+  break-inside: avoid;
+}
+.slide-pad {
+  padding: 0.75in 1in;
+}
+/* Image slide with overlay */
+.slide-img {
+  position: relative;
+}
+.slide-img img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.slide-img .overlay {
+  position: relative;
+  z-index: 1;
+  height: 8.5in;
+  display: flex;
+}
+/* Print link URLs */
+@media print {
+  a.src::after {
+    content: " [" attr(href) "]";
+    font-size: 6pt;
+    color: #7e7576;
+    word-break: break-all;
+  }
+}
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body">
+
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<div class="slide slide-img">
+  <img alt="Quinta Monroy" class="grayscale opacity-90" src="./images/01_hero_quinta_monroy.jpg"/>
+  <div class="absolute inset-0 bg-black/55"></div>
+  <div class="overlay flex-col items-center justify-center text-center px-20">
+    <h1 class="text-white text-8xl font-headline font-black tracking-[-0.03em] uppercase leading-none">
+      HALF A GOOD<br/>HOUSE
+    </h1>
+    <p class="mt-6 text-white/80 font-label uppercase tracking-[0.25em] text-sm">
+      Elemental / Quinta Monroy &mdash; A Systems Case Study
+    </p>
+    <div class="mt-12 space-y-1">
+      <p class="text-white/50 font-label uppercase tracking-[0.2em] text-xs">Ian Arnoldy + Yuchen Zhang</p>
+      <p class="text-white/35 font-label uppercase tracking-[0.2em] text-[10px]">IXDS 709 &mdash; Systems Innovation: Beyond Human-Centered Design &mdash; SCAD &mdash; Spring 2026</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 2: THE PROBLEM (over image) ===== -->
+<div class="slide slide-img">
+  <img alt="Quinta Monroy" class="grayscale opacity-80" src="./images/01_hero_quinta_monroy.jpg"/>
+  <div class="absolute inset-0 bg-black/65"></div>
+  <div class="overlay items-center px-20">
+    <div class="max-w-4xl space-y-6">
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-white/40 block">The Problem</span>
+      <h2 class="text-4xl font-headline font-bold text-white leading-snug">
+        In the early 2000s, Chile was building 100,000 social housing units per year. It was the model for the developing world.
+      </h2>
+      <p class="text-sm text-white/75 leading-relaxed max-w-3xl">
+        The government subsidy of $7,500 per family bought a 36 m&sup2; box on the cheapest land available &mdash; always on the urban periphery, far from jobs, schools, and hospitals. Commutes stretched to two or three hours. Properties depreciated. Mortgage delinquency hit 70%. Social networks shattered on relocation.
+      </p>
+      <p class="text-sm text-white/75 leading-relaxed max-w-3xl">
+        Nearly 1.7 million homes were delivered in three decades. The academics called it <em>&ldquo;Los con techo&rdquo;</em> &mdash; &ldquo;Those with a roof.&rdquo; The housing problem was no longer families without a roof. It was the families with one. The houses themselves had become poverty traps.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 3: CONTEXT (Q1) ===== -->
+<div class="slide bg-surface slide-pad flex items-center">
+  <div class="flex gap-16 w-full">
+    <div class="w-1/4 shrink-0">
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-secondary block">01 / Context</span>
+      <p class="mt-2 font-label text-xs uppercase tracking-[0.15em] text-outline">Q1 &mdash; What was the context?</p>
+    </div>
+    <div class="w-3/4 space-y-5">
+      <h2 class="text-3xl font-headline font-bold text-primary leading-snug">
+        Chile delivered 1.7 million homes in three decades. The houses trapped families in poverty.
+      </h2>
+      <p class="text-sm text-on-surface-variant leading-relaxed">
+        The government subsidy of $7,500 per family produced 36 m&sup2; boxes on cheap peripheral land &mdash; far from jobs, schools, and hospitals. Properties depreciated. Mortgage delinquency hit 70%. Commutes stretched to 2&ndash;3 hours. Social networks shattered on relocation. The academics called it <em>&ldquo;Los con techo&rdquo;</em> &mdash; &ldquo;Those with a roof.&rdquo;
+      </p>
+      <p class="text-sm text-on-surface-variant leading-relaxed">
+        In the center of Iquique &mdash; a port city on Chile&rsquo;s northern desert coast &mdash; roughly 100 families had been living on a half-hectare lot called Quinta Monroy since the 1960s. 60% of rooms lacked natural light. A fire in 1980 left 20 families homeless. When the landowner died in 2000, the land tripled in value and the families faced eviction. The families organized and refused.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 4: FEEDBACK LOOP ===== -->
+<div class="slide bg-surface-container slide-pad flex flex-col items-center justify-center text-center">
+  <span class="font-label text-[10px] uppercase tracking-[0.3em] text-secondary block mb-8">The Displacement Feedback Loop</span>
+  <div class="font-headline text-xl text-primary leading-loose tracking-wide max-w-5xl">
+    <span class="font-bold">Cheap peripheral land</span>
+    <span class="text-outline mx-3">&rarr;</span>
+    <span>Isolation from jobs</span>
+    <span class="text-outline mx-3">&rarr;</span>
+    <span>Property depreciates</span>
+    <span class="text-outline mx-3">&rarr;</span>
+    <span>No equity</span>
+    <span class="text-outline mx-3">&rarr;</span>
+    <span>Trapped in poverty</span>
+    <span class="text-outline mx-3">&rarr;</span>
+    <span class="font-bold">Can only afford cheap land</span>
+    <span class="text-outline mx-3">&rarr;</span>
+    <span class="text-error font-bold">Cycle repeats</span>
+  </div>
+  <p class="text-sm text-secondary max-w-2xl mt-8">Elemental broke this loop at the root: the land decision. They kept families on central land &mdash; even though it cost three times the standard allocation.</p>
+</div>
+
+
+<!-- ===== SLIDE 5: THE VOID (image) ===== -->
+<div class="slide slide-img">
+  <img alt="Interior void" src="./images/19_photo_k.png"/>
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="overlay items-end px-20 pb-16">
+    <div>
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-white/50">02 / Design</span>
+      <h3 class="text-6xl font-headline font-black text-white uppercase leading-none mt-3">The Void</h3>
+      <p class="text-white/60 text-sm mt-3 max-w-lg">The structural skeleton delivered by Elemental &mdash; everything a family cannot build themselves. The other half waits.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 6: DESIGN (Q2) ===== -->
+<div class="slide bg-surface slide-pad flex items-center">
+  <div class="flex gap-12 w-full">
+    <div class="w-2/5 shrink-0">
+      <img alt="Before and after" class="w-full h-full object-cover" style="max-height: 5.8in;" src="./images/02_exterior_tadeuz.jpg"/>
+    </div>
+    <div class="w-3/5 space-y-5">
+      <div>
+        <p class="font-label text-xs uppercase tracking-[0.15em] text-outline mb-3">Q2 &mdash; How did context affect its design?</p>
+        <h3 class="text-3xl font-headline font-bold text-primary uppercase leading-tight">Half a Good House</h3>
+      </div>
+      <p class="text-sm text-on-surface-variant leading-relaxed">
+        With $7,500 and land costing three times the standard allocation, Elemental couldn&rsquo;t build a complete house. Aravena reframed: &ldquo;What if 36 m&sup2; is not a small house, but half of a good one?&rdquo;
+      </p>
+      <p class="text-sm text-on-surface-variant leading-relaxed">
+        They built the <strong>&ldquo;difficult half&rdquo;</strong> &mdash; concrete frame, roof, kitchen, bathroom, staircase, all infrastructure. The other half: a structural void. They called it <strong>&ldquo;middle-class DNA&rdquo;</strong> &mdash; housing designed to grow into 72 m&sup2;.
+      </p>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between border-b border-outline/20 pb-2"><span class="font-headline font-medium">34 Ground-Floor Units</span><span class="font-label text-[10px] uppercase text-secondary">36 &rarr; 70 m&sup2;</span></div>
+        <div class="flex justify-between border-b border-outline/20 pb-2"><span class="font-headline font-medium">59 Upper-Floor Duplexes</span><span class="font-label text-[10px] uppercase text-secondary">36 &rarr; 72 m&sup2;</span></div>
+        <div class="flex justify-between border-b border-outline/20 pb-2"><span class="font-headline font-medium">4 Shared Courtyards</span><span class="font-label text-[10px] uppercase text-secondary">Preserving social bonds</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 7: ARCHITECTURAL EVIDENCE ===== -->
+<div class="slide bg-surface-container slide-pad flex flex-col justify-center">
+  <span class="font-label text-[10px] uppercase tracking-[0.3em] text-secondary block text-center mb-6">Architectural Evidence</span>
+  <div class="grid grid-cols-4 gap-6 max-w-6xl mx-auto">
+    <div class="space-y-2">
+      <img alt="Floor plan" class="w-full aspect-[4/3] object-contain bg-white p-2" src="./images/03_plan_planta1.jpg"/>
+      <span class="font-label text-[8px] uppercase tracking-[0.1em] text-secondary block">Floor Plan &mdash; &ldquo;futura ampliaci&oacute;n&rdquo;</span>
+    </div>
+    <div class="space-y-2">
+      <img alt="Elevation" class="w-full aspect-[4/3] object-contain bg-white p-2" src="./images/04_elevation.jpg"/>
+      <span class="font-label text-[8px] uppercase tracking-[0.1em] text-secondary block">Elevation &mdash; Type 1 + Type 2</span>
+    </div>
+    <div class="space-y-2">
+      <img alt="Delivered interior" class="w-full aspect-[4/3] object-cover" src="./images/11_photo_c.jpg"/>
+      <span class="font-label text-[8px] uppercase tracking-[0.1em] text-secondary block">Delivered Interior</span>
+    </div>
+    <div class="space-y-2">
+      <img alt="Before/after" class="w-full aspect-[4/3] object-cover" src="./images/20_photo_l.png"/>
+      <span class="font-label text-[8px] uppercase tracking-[0.1em] text-secondary block">Before / After</span>
+    </div>
+  </div>
+  <p class="text-[7px] text-outline text-center font-label uppercase tracking-[0.1em] mt-4">Images: ELEMENTAL open-source drawings (elementalchile.cl) &amp; Cristobal Palma / Tadeuz Jalocha</p>
+</div>
+
+
+<!-- ===== SLIDE 8: STATS ===== -->
+<div class="slide bg-surface-container-low slide-pad flex flex-col items-center justify-center">
+  <span class="font-label text-[10px] uppercase tracking-[0.3em] text-secondary block mb-12">The Solution &mdash; By the Numbers</span>
+  <div class="grid grid-cols-4 gap-12 max-w-4xl">
+    <div class="flex flex-col gap-2 text-center">
+      <span class="text-6xl font-headline font-black tracking-tighter text-primary">93</span>
+      <span class="font-label text-[10px] uppercase tracking-[0.15em] text-secondary">Families Housed</span>
+    </div>
+    <div class="flex flex-col gap-2 text-center">
+      <span class="text-5xl font-headline font-black tracking-tighter text-primary">$7,500</span>
+      <span class="font-label text-[10px] uppercase tracking-[0.15em] text-secondary">Per-Unit Subsidy</span>
+    </div>
+    <div class="flex flex-col gap-2 text-center">
+      <span class="text-5xl font-headline font-black tracking-tighter text-primary">36&rarr;72</span>
+      <span class="font-label text-[10px] uppercase tracking-[0.15em] text-secondary">m&sup2; Expandable</span>
+    </div>
+    <div class="flex flex-col gap-2 text-center">
+      <span class="text-6xl font-headline font-black tracking-tighter text-primary">230%</span>
+      <span class="font-label text-[10px] uppercase tracking-[0.15em] text-secondary">Value Increase</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 9: THE SYSTEM (image) ===== -->
+<div class="slide slide-img">
+  <img alt="Courtyard as delivered" src="./images/12_photo_d.png"/>
+  <div class="absolute inset-0 bg-black/45"></div>
+  <div class="overlay items-end px-20 pb-16">
+    <div>
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-white/50">03 / Systems</span>
+      <h3 class="text-6xl font-headline font-black text-white uppercase leading-none mt-3">Beyond HCD</h3>
+      <p class="text-white/60 text-sm mt-3 max-w-lg">Four systems redesigned. Not one interface improved.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 10: SYSTEMS (Q3) ===== -->
+<div class="slide bg-surface slide-pad flex items-center">
+  <div class="w-full space-y-6">
+    <div>
+      <p class="font-label text-xs uppercase tracking-[0.15em] text-outline mb-3">Q3 &mdash; Why does this move beyond user-centered design?</p>
+      <h2 class="text-3xl font-headline font-bold text-primary leading-snug">A user-centered designer would have made a better 36 m&sup2; house. Aravena changed the system.</h2>
+    </div>
+    <div class="grid grid-cols-4 gap-10">
+      <div class="space-y-2">
+        <h4 class="font-label text-[10px] uppercase tracking-[0.2em] text-primary font-bold">Government Policy</h4>
+        <p class="text-xs text-on-surface-variant leading-relaxed">Changed what the subsidy was allowed to buy &mdash; half a unit instead of a whole one. Convinced MINVU through the VSDsD program.</p>
+      </div>
+      <div class="space-y-2">
+        <h4 class="font-label text-[10px] uppercase tracking-[0.2em] text-primary font-bold">Land Economics</h4>
+        <p class="text-xs text-on-surface-variant leading-relaxed">Spent 70% of the budget on central location instead of construction. Location is the intervention.</p>
+      </div>
+      <div class="space-y-2">
+        <h4 class="font-label text-[10px] uppercase tracking-[0.2em] text-primary font-bold">Construction Logic</h4>
+        <p class="text-xs text-on-surface-variant leading-relaxed">Designed for the 72 m&sup2; end state, not the 36 m&sup2; delivery. Incomplete but expandable beats complete but fixed.</p>
+      </div>
+      <div class="space-y-2">
+        <h4 class="font-label text-[10px] uppercase tracking-[0.2em] text-primary font-bold">Role of the Resident</h4>
+        <p class="text-xs text-on-surface-variant leading-relaxed">Co-builder and investor, not passive recipient. 92 of 93 families expanded within 12 years.</p>
+      </div>
+    </div>
+    <blockquote class="border-l-2 border-primary pl-6 py-2 mt-4">
+      <p class="text-base font-headline font-medium text-primary italic">&ldquo;What we&rsquo;re trying to do by asking people to participate is envision what is the question, not what is the answer. There&rsquo;s nothing worse than answering the wrong question well.&rdquo;</p>
+      <cite class="font-label text-[9px] uppercase tracking-[0.15em] text-secondary mt-2 block not-italic">&mdash; Alejandro Aravena, TED Talk (2014)</cite>
+    </blockquote>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 11: PARTICIPATORY DESIGN ===== -->
+<div class="slide bg-surface-container-low slide-pad flex flex-col items-center justify-center">
+  <span class="font-label text-[10px] uppercase tracking-[0.3em] text-secondary block mb-10">Participatory Design</span>
+  <div class="grid grid-cols-3 gap-16 text-center max-w-5xl">
+    <div class="space-y-3">
+      <span class="text-4xl font-headline font-black text-primary">01</span>
+      <h4 class="font-label text-[10px] uppercase tracking-[0.2em] text-primary font-bold">The Hunger Strike</h4>
+      <p class="text-xs text-on-surface-variant leading-relaxed">Residents threatened a hunger strike when apartments were proposed. They rejected any design that couldn&rsquo;t expand. This constraint produced the half-house innovation.</p>
+    </div>
+    <div class="space-y-3">
+      <span class="text-4xl font-headline font-black text-primary">02</span>
+      <h4 class="font-label text-[10px] uppercase tracking-[0.2em] text-primary font-bold">The Right Question</h4>
+      <p class="text-xs text-on-surface-variant leading-relaxed">&ldquo;If you can only have half a house now, which half do you need us to build?&rdquo; Residents chose: stay on this land, ability to expand, ground-level access, middle-class standard.</p>
+    </div>
+    <div class="space-y-3">
+      <span class="text-4xl font-headline font-black text-primary">03</span>
+      <h4 class="font-label text-[10px] uppercase tracking-[0.2em] text-primary font-bold">Design Justice</h4>
+      <p class="text-xs text-on-surface-variant leading-relaxed">Connects to Costanza-Chock&rsquo;s framework: &ldquo;Nothing about us without us.&rdquo; The hunger strike was not an obstacle &mdash; it was the most important data point.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 12: QUINTA MONROY (image) ===== -->
+<div class="slide slide-img">
+  <img alt="Before and after" src="./images/20_photo_l.png"/>
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="overlay flex-col justify-between px-20 py-16">
+    <div>
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-white/50">Iquique, Chile &mdash; 2004</span>
+      <h4 class="text-white text-6xl font-headline font-black tracking-tight uppercase leading-none mt-2">Quinta Monroy</h4>
+    </div>
+    <div class="max-w-3xl space-y-4">
+      <h3 class="text-2xl font-headline font-bold text-white leading-snug">
+        What happens when you give 93 families half a house on the most expensive land in the city?
+      </h3>
+      <p class="text-sm text-white/75 leading-relaxed">
+        Elemental spent 70% of the budget keeping families on central land. Within one year, property values tripled. Within twelve years, 92 of 93 households expanded. The house became an investment vehicle, not a depreciating box.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 13: IMPACT (Q4) ===== -->
+<div class="slide bg-surface slide-pad flex items-center">
+  <div class="flex gap-16 w-full">
+    <div class="w-1/4 shrink-0">
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-secondary block">04 / Impact</span>
+      <p class="mt-2 font-label text-xs uppercase tracking-[0.15em] text-outline">Q4 &mdash; Does beyond-HCD make it better?</p>
+    </div>
+    <div class="w-3/4 space-y-5">
+      <h2 class="text-3xl font-headline font-bold text-primary leading-snug">Mostly yes. But with real problems.</h2>
+      <p class="text-sm text-on-surface-variant leading-relaxed">
+        92 of 93 families expanded their homes. Property values increased from $7,500 to over $20,000 within a year. Central location was preserved. Housing extensions became income sources &mdash; rental units, businesses. The house became a wealth-building platform.
+      </p>
+      <p class="text-sm text-on-surface-variant leading-relaxed">
+        The positive feedback loop reversed: central location &rarr; economic access &rarr; home expansion &rarr; increased value &rarr; household wealth &rarr; further investment. Aravena: &ldquo;a tool to overcome poverty&rdquo; rather than merely &ldquo;a shelter against the environment.&rdquo;
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 14: VILLA VERDE (image) ===== -->
+<div class="slide slide-img">
+  <img alt="Expanded facade" src="./images/10_photo_b.png"/>
+  <div class="absolute inset-0 bg-black/45"></div>
+  <div class="overlay flex-col justify-between px-20 py-16">
+    <div>
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-white/50">Constituci&oacute;n, Chile &mdash; 2013</span>
+      <h4 class="text-white text-6xl font-headline font-black tracking-tight uppercase leading-none mt-2">Villa Verde</h4>
+    </div>
+    <div class="max-w-3xl space-y-4">
+      <h3 class="text-2xl font-headline font-bold text-white leading-snug">
+        On February 27, 2010, an 8.8-magnitude earthquake struck Chile &mdash; one of the six most powerful ever recorded.
+      </h3>
+      <p class="text-sm text-white/75 leading-relaxed">
+        Constituci&oacute;n was devastated. 61% flooded, 80% of buildings ruined. Elemental created a city master plan: 484 incremental houses, a 16-hectare tsunami buffer forest, public space tripled. Quinta Monroy was 93 families. Constituci&oacute;n was 46,000 people. The model scaled.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 15: TIMELINE ===== -->
+<div class="slide bg-surface-container slide-pad flex flex-col justify-center">
+  <div class="max-w-5xl mx-auto w-full">
+    <div class="text-center mb-8">
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-secondary block mb-2">Recognition</span>
+      <h3 class="text-2xl font-headline font-bold text-primary">AWARDS &amp; MILESTONES</h3>
+    </div>
+    <div class="text-sm">
+      <div class="py-3 border-t border-outline/10 flex items-baseline gap-8"><span class="font-label text-[10px] uppercase text-secondary w-12 shrink-0">2004</span><p class="font-headline font-medium text-primary">Quinta Monroy completed &mdash; 93 families housed in central Iquique</p></div>
+      <div class="py-3 border-t border-outline/10 flex items-baseline gap-8"><span class="font-label text-[10px] uppercase text-secondary w-12 shrink-0">2008</span><p class="font-headline font-medium text-primary">Venice Biennale Silver Lion &mdash; Promising Young Architects</p></div>
+      <div class="py-3 border-t border-outline/10 flex items-baseline gap-8"><span class="font-label text-[10px] uppercase text-secondary w-12 shrink-0">2010</span><p class="font-headline font-medium text-primary">8.8-magnitude earthquake devastates Constituci&oacute;n &mdash; Elemental hired for city master plan</p></div>
+      <div class="py-3 border-t border-outline/10 flex items-baseline gap-8"><span class="font-label text-[10px] uppercase text-secondary w-12 shrink-0">2013</span><p class="font-headline font-medium text-primary">Villa Verde completed &mdash; 484 incremental housing units</p></div>
+      <div class="py-3 border-t border-outline/10 flex items-baseline gap-8"><span class="font-label text-[10px] uppercase text-secondary w-12 shrink-0">2016</span><p class="font-headline font-medium text-primary">Pritzker Architecture Prize &mdash; first Chilean laureate. Open-sources 4 housing designs (40,000 downloads)</p></div>
+      <div class="py-3 border-t border-outline/10 border-b border-outline/10 flex items-baseline gap-8"><span class="font-label text-[10px] uppercase text-secondary w-12 shrink-0">2025</span><p class="font-headline font-medium text-primary">Aravena: &ldquo;It&rsquo;s still a failure. The mainstream has not been affected.&rdquo;</p></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 16: CRITICISM ===== -->
+<div class="slide bg-surface slide-pad flex items-center">
+  <div class="w-full space-y-6">
+    <div>
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-secondary">05 / Criticism</span>
+      <p class="mt-1 font-label text-xs uppercase tracking-[0.15em] text-outline">Q4 &mdash; Honest analysis</p>
+      <h2 class="text-3xl font-headline font-bold text-primary leading-snug mt-3">The system bent. It didn&rsquo;t break.</h2>
+    </div>
+    <div class="grid grid-cols-2 gap-x-12 gap-y-6">
+      <div class="space-y-2">
+        <h4 class="font-label text-[10px] uppercase tracking-[0.2em] text-primary font-bold">Construction Skill Gap</h4>
+        <p class="text-xs text-on-surface-variant leading-relaxed">Not all families can build. Many additions use &ldquo;low-durable and poor quality materials&rdquo; (O&rsquo;Brien &amp; Carrasco, 2021). 31% of units encroached on public courtyards.</p>
+      </div>
+      <div class="space-y-2">
+        <h4 class="font-label text-[10px] uppercase tracking-[0.2em] text-primary font-bold">&ldquo;Why Should the Poor Get Half a House?&rdquo;</h4>
+        <p class="text-xs text-on-surface-variant leading-relaxed">Boano &amp; Vergara Perucich (2016) argue the model normalizes inadequate state provision &mdash; shifting the construction burden onto the poorest families.</p>
+      </div>
+      <div class="space-y-2">
+        <h4 class="font-label text-[10px] uppercase tracking-[0.2em] text-primary font-bold">Participation Ended at Handover</h4>
+        <p class="text-xs text-on-surface-variant leading-relaxed">Carrasco &amp; O&rsquo;Brien (2021): &ldquo;the participative processes claimed by Elemental ended when residents received their homes.&rdquo; Individual agency without collective governance.</p>
+      </div>
+      <div class="space-y-2">
+        <h4 class="font-label text-[10px] uppercase tracking-[0.2em] text-primary font-bold">Scalability</h4>
+        <p class="text-xs text-on-surface-variant leading-relaxed">Despite the Pritzker Prize and 40,000 plan downloads, the dominant housing model worldwide remains unchanged. Aravena (2025): &ldquo;It&rsquo;s still a failure.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 17: PEOPLE + CHANGE (Q5 + Q6) ===== -->
+<div class="slide bg-surface-container-low slide-pad flex items-center">
+  <div class="grid grid-cols-2 gap-16 w-full">
+    <div class="space-y-4">
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-secondary">06 / People</span>
+      <p class="font-label text-xs uppercase tracking-[0.15em] text-outline">Q5 &mdash; What groups did this affect?</p>
+      <div class="space-y-2 text-sm text-on-surface-variant leading-relaxed">
+        <p><strong>93 families</strong> &mdash; housed on their own land, given a wealth-building platform</p>
+        <p><strong>Government officials</strong> &mdash; who approved an unconventional half-house model</p>
+        <p><strong>2,500+ families</strong> &mdash; in subsequent Elemental projects across Chile and Mexico</p>
+        <p><strong>40,000 downloaders</strong> &mdash; of the open-source plans worldwide</p>
+        <p><strong>The architecture profession</strong> &mdash; the Pritzker shifted what design is for</p>
+      </div>
+    </div>
+    <div class="space-y-4">
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-secondary">07 / Change</span>
+      <p class="font-label text-xs uppercase tracking-[0.15em] text-outline">Q6 &mdash; Did it create meaningful change?</p>
+      <div class="space-y-2 text-sm text-on-surface-variant leading-relaxed">
+        <p><strong>Project level: Yes.</strong> 92/93 expanded. Equity built. Economic connection preserved.</p>
+        <p><strong>City level: Yes.</strong> Constituci&oacute;n proves scaling &mdash; 93 families to 46,000 people.</p>
+        <p><strong>Global level: Not yet.</strong> The mainstream has not been affected.</p>
+        <p class="mt-3 border-l-2 border-primary pl-4 italic text-xs">The meaningful change is real but bounded. The system bent. It didn&rsquo;t break. That tension is what makes this a systems case study.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 18: BIBLIOGRAPHY (page 1) ===== -->
+<div class="slide bg-surface slide-pad flex items-start">
+  <div class="w-full space-y-4">
+    <div class="text-center mb-4">
+      <span class="font-label text-[10px] uppercase tracking-[0.3em] text-secondary block mb-1">Sources</span>
+      <h3 class="text-2xl font-headline font-bold text-primary">BIBLIOGRAPHY</h3>
+    </div>
+    <div class="grid grid-cols-2 gap-x-12 gap-y-4 text-[9px] text-on-surface-variant leading-relaxed">
+      <div class="space-y-3">
+        <h4 class="font-label text-[8px] uppercase tracking-[0.2em] text-primary font-bold border-b border-outline/20 pb-1">Academic Papers</h4>
+        <ol class="space-y-1.5 list-decimal list-inside">
+          <li>Boano &amp; Vergara Perucich (2016). Half-happy architecture. <em>Viceversa</em>. <a href="https://www.academia.edu/24301881/Half_happy_architecture" class="src text-primary underline">academia.edu</a></li>
+          <li>Carrasco &amp; O&rsquo;Brien (2021). Beyond the freedom to build. <em>urbe</em>. <a href="https://doi.org/10.1590/2175-3369.013.e20200001" class="src text-primary underline">DOI</a></li>
+          <li>Carrasco &amp; O&rsquo;Brien (2022). Re-thinking incremental housing: Villa Verde. <a href="https://www.scielo.br/j/urbe/a/chbgBCSyqhwsqrMxL35BrLQ/" class="src text-primary underline">Scielo</a></li>
+          <li>O&rsquo;Brien &amp; Carrasco (2021). Contested incrementalism. <em>Frontiers of Arch. Research</em>. <a href="https://www.sciencedirect.com/science/article/pii/S2095263520300728" class="src text-primary underline">ScienceDirect</a></li>
+          <li>Rodriguez &amp; Sugranyes (2005). <em>Los con techo</em>. Ediciones SUR.</li>
+          <li>Van Noorloos et al. (2020). Incremental housing as a node. <em>Env. &amp; Urbanization</em>. <a href="https://journals.sagepub.com/doi/10.1177/0956247819887679" class="src text-primary underline">SAGE</a></li>
+        </ol>
+        <h4 class="font-label text-[8px] uppercase tracking-[0.2em] text-primary font-bold border-b border-outline/20 pb-1 mt-3">Policy &amp; Institutional</h4>
+        <ol start="7" class="space-y-1.5 list-decimal list-inside">
+          <li>Lincoln Institute &mdash; Housing Finance Policy in Chile. <a href="https://www.lincolninst.edu/publications/articles/housing-finance-policy-chile/" class="src text-primary underline">lincolninst.edu</a></li>
+          <li>ELEMENTAL &mdash; About. <a href="https://www.elementalchile.cl/about" class="src text-primary underline">elementalchile.cl</a></li>
+          <li>ELEMENTAL &mdash; Open-source plans. <a href="https://www.elementalchile.cl/downloads/quinta-monroy-housing-plans" class="src text-primary underline">elementalchile.cl</a></li>
+          <li>Pritzker Prize &mdash; Jury Citation. <a href="https://www.pritzkerprize.com/jury-citation-ale-jan-dro-ara-ve-na" class="src text-primary underline">pritzkerprize.com</a></li>
+          <li>MoMA &mdash; Small Scale, Big Change. <a href="https://www.moma.org/interactives/exhibitions/2010/smallscalebigchange/projects/quinta_monroy_housing.html" class="src text-primary underline">moma.org</a></li>
+          <li>Holcim Foundation &mdash; PRES Constituci&oacute;n. <a href="https://www.holcimfoundation.org/projects/sustainable-post-tsunami-reconstruction-master-plan" class="src text-primary underline">holcimfoundation.org</a></li>
+          <li>Harvard ReVista &mdash; ELEMENTAL. <a href="https://revista.drclas.harvard.edu/elemental/" class="src text-primary underline">harvard.edu</a></li>
+        </ol>
+      </div>
+      <div class="space-y-3">
+        <h4 class="font-label text-[8px] uppercase tracking-[0.2em] text-primary font-bold border-b border-outline/20 pb-1">Architecture Media</h4>
+        <ol start="14" class="space-y-1.5 list-decimal list-inside">
+          <li>ArchDaily &mdash; Quinta Monroy. <a href="https://www.archdaily.com/10775/quinta-monroy-elemental" class="src text-primary underline">archdaily.com</a></li>
+          <li>ArchDaily &mdash; Aravena Wins Pritzker. <a href="https://www.archdaily.com/780203/alejandro-aravena-wins-2016-pritzker-prize" class="src text-primary underline">archdaily.com</a></li>
+          <li>ArchDaily &mdash; Open-Source Plans. <a href="https://www.archdaily.com/785023/elemental-releases-plans-of-4-housing-projects-for-open-source-use" class="src text-primary underline">archdaily.com</a></li>
+          <li>Dezeen &mdash; Most significant building of 2004. <a href="https://www.dezeen.com/2025/01/10/quinta-monroy-housing-elemental-alejandro-aravena-21st-century-architecture/" class="src text-primary underline">dezeen.com</a></li>
+          <li>Arquitectura Viva &mdash; Quinta Monroy. <a href="https://arquitecturaviva.com/works/viviendas-quinta-monroy-1" class="src text-primary underline">arquitecturaviva.com</a></li>
+          <li>Spatial Agency &mdash; Elemental. <a href="https://www.spatialagency.net/database/elemental" class="src text-primary underline">spatialagency.net</a></li>
+        </ol>
+        <h4 class="font-label text-[8px] uppercase tracking-[0.2em] text-primary font-bold border-b border-outline/20 pb-1 mt-3">TED, News &amp; Commentary</h4>
+        <ol start="20" class="space-y-1.5 list-decimal list-inside">
+          <li>Aravena (2014). TED Talk. <a href="https://www.ted.com/talks/alejandro_aravena_my_architectural_philosophy_bring_the_community_into_the_process" class="src text-primary underline">ted.com</a></li>
+          <li>World Bank &mdash; &ldquo;Starchitect&rdquo; of the Poor. <a href="https://blogs.worldbank.org/en/sustainablecities/starchitect-poor-keys-alejandro-aravenas-work" class="src text-primary underline">worldbank.org</a></li>
+          <li>New Republic &mdash; Can Half a Good House Become a Home? <a href="https://newrepublic.com/article/134223/can-half-good-house-become-home" class="src text-primary underline">newrepublic.com</a></li>
+          <li>99% Invisible &mdash; Half a House. <a href="https://99percentinvisible.org/episode/half-a-house/transcript/" class="src text-primary underline">99pi.org</a></li>
+          <li>Britannica &mdash; Chile Earthquake 2010. <a href="https://www.britannica.com/event/Chile-earthquake-of-2010" class="src text-primary underline">britannica.com</a></li>
+        </ol>
+        <h4 class="font-label text-[8px] uppercase tracking-[0.2em] text-primary font-bold border-b border-outline/20 pb-1 mt-3">Course Textbooks</h4>
+        <ol start="25" class="space-y-1.5 list-decimal list-inside">
+          <li>Cababa. <em>Closing the Loop</em>. Rosenfeld Media.</li>
+          <li>Costanza-Chock (2020). <em>Design Justice</em>. MIT Press.</li>
+        </ol>
+        <p class="mt-3 text-[8px] text-outline">Photos: Cristobal Palma &amp; Tadeuz Jalocha via ArchDaily. Drawings: ELEMENTAL open-source, elementalchile.cl.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 19: CLOSING ===== -->
+<div class="slide bg-surface-container-high flex flex-col items-center justify-center text-center">
+  <div class="font-black text-3xl text-black font-label uppercase tracking-[0.1em]">ELEMENTAL</div>
+  <p class="font-label uppercase tracking-[0.2em] text-sm mt-4 text-secondary">Half a Good House &mdash; A Systems Case Study</p>
+  <div class="mt-8 space-y-1">
+    <p class="font-label uppercase tracking-[0.15em] text-xs text-secondary">IXDS 709 &mdash; Systems Innovation: Beyond Human-Centered Design</p>
+    <p class="font-label uppercase tracking-[0.15em] text-xs text-secondary">Ian Arnoldy + Yuchen Zhang &nbsp;|&nbsp; Spring 2026 &nbsp;|&nbsp; SCAD</p>
+  </div>
+</div>
+
+</body>
+</html>
